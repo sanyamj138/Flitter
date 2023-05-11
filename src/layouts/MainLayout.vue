@@ -63,7 +63,7 @@
 
     <q-drawer show-if-above v-model="right" side="right" bordered>
       <q-input
-        placeholder="Search Qwitter"
+        placeholder="Search Flitter"
         class="q-ma-md"
         outlined
         rounded

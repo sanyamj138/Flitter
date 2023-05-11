@@ -4,8 +4,8 @@
       <div class="q-py-lg q-px-md row items-end q-col-gutter-md">
         <div class="col">
           <q-input
-            v-model="newQweetContent"
-            class="new-qweet"
+            v-model="newflitContent"
+            class="new-flit"
             placeholder="What's happening?"
             maxlength="280"
             bottom-slots
@@ -21,11 +21,11 @@
         </div>
         <div class="col col-shrink">
           <q-btn
-            @click="addNewQweet"
-            :disable="!newQweetContent"
+            @click="addNewflit"
+            :disable="!newflitContent"
             class="q-mb-lg"
             color="primary"
-            label="Qweet"
+            label="Flit"
             rounded
             unelevated
             no-caps
@@ -46,9 +46,9 @@
           leave-active-class="animated fadeOut slow"
         >
           <q-item
-            v-for="qweet in qweets"
-            :key="qweet.id"
-            class="qweet q-py-md"
+            v-for="flit in flits"
+            :key="flit.id"
+            class="flit q-py-md"
           >
             <q-item-section avatar top>
               <q-avatar size="xl">
@@ -58,14 +58,14 @@
 
             <q-item-section>
               <q-item-label class="text-subtitle1">
-                <strong>Danny Connell</strong>
+                <strong>Sanyam Jain</strong>
                 <span class="text-grey-7">
-                  @danny__connell 
-                  <br class="lt-md">&bull; {{ qweet.date | relativeDate }}
+                  @sanyamj138
+                  <br class="lt-md">&bull; {{ flit.date | relativeDate }}
                 </span>
               </q-item-label>
-              <q-item-label class="qweet-content text-body1">{{ qweet.content }}</q-item-label>
-              <div class="qweet-icons row justify-between q-mt-sm">
+              <q-item-label class="flit-content text-body1">{{ flit.content }}</q-item-label>
+              <div class="flit-icons row justify-between q-mt-sm">
                 <q-btn
                   color="grey"
                   icon="far fa-comment"
@@ -81,15 +81,15 @@
                   round
                 />
                 <q-btn
-                  @click="toggleLiked(qweet)"
-                  :color="qweet.liked ? 'pink' : 'grey'"
-                  :icon="qweet.liked ? 'fas fa-heart' : 'far fa-heart'"
+                  @click="toggleLiked(flit)"
+                  :color="flit.liked ? 'pink' : 'grey'"
+                  :icon="flit.liked ? 'fas fa-heart' : 'far fa-heart'"
                   size="sm"
                   flat
                   round
                 />
                 <q-btn
-                  @click="deleteQweet(qweet)"
+                  @click="deleteflit(flit)"
                   color="grey"
                   icon="fas fa-trash"
                   size="sm"
@@ -113,8 +113,8 @@ export default {
   name: 'PageHome',
   data() {
     return {
-      newQweetContent: '',
-      qweets: [
+      newflitContent: '',
+      flits: [
         // {
         //   id: 'ID1',
         //   content: 'Be your own hero, its cheaper than a movie ticket.',
@@ -131,30 +131,30 @@ export default {
     }
   },
   methods: {
-    addNewQweet() {
-      let newQweet = {
-        content: this.newQweetContent,
+    addNewflit() {
+      let newflit = {
+        content: this.newflitContent,
         date: Date.now(),
         liked: false
       }
-      // this.qweets.unshift(newQweet)
-      db.collection('qweets').add(newQweet).then(function(docRef) {
+      // this.flits.unshift(newflit)
+      db.collection('flits').add(newflit).then(function(docRef) {
         console.log('Document written with ID: ', docRef.id)
       }).catch(function(error) {
         console.error('Error adding document: ', error)
       })
-      this.newQweetContent = ''
+      this.newflitContent = ''
     },
-    deleteQweet(qweet) {
-      db.collection('qweets').doc(qweet.id).delete().then(function() {
+    deleteflit(flit) {
+      db.collection('flits').doc(flit.id).delete().then(function() {
         console.log('Document successfully deleted!');
       }).catch(function(error) {
         console.error('Error removing document: ', error);
       })
     },
-    toggleLiked(qweet) {
-      db.collection('qweets').doc(qweet.id).update({
-        liked: !qweet.liked
+    toggleLiked(flit) {
+      db.collection('flits').doc(flit.id).update({
+        liked: !flit.liked
       })
       .then(function() {
         console.log('Document successfully updated!')
@@ -171,23 +171,23 @@ export default {
     }
   },
   mounted() {
-    db.collection('qweets').orderBy('date').onSnapshot(snapshot => {
+    db.collection('flits').orderBy('date').onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
-        let qweetChange = change.doc.data()
-        qweetChange.id = change.doc.id
+        let flitChange = change.doc.data()
+        flitChange.id = change.doc.id
         if (change.type === 'added') {
-          console.log('New qweet: ', qweetChange)
-          this.qweets.unshift(qweetChange)
+          console.log('New flit: ', flitChange)
+          this.flits.unshift(flitChange)
         }
         if (change.type === 'modified') {
-          console.log('Modified qweet: ', qweetChange)
-          let index = this.qweets.findIndex(qweet => qweet.id === qweetChange.id)
-          Object.assign(this.qweets[index], qweetChange)
+          console.log('Modified flit: ', flitChange)
+          let index = this.flits.findIndex(flit => flit.id === flitChange.id)
+          Object.assign(this.flits[index], flitChange)
         }
         if (change.type === 'removed') {
-          console.log('Removed qweet: ', qweetChange)
-          let index = this.qweets.findIndex(qweet => qweet.id === qweetChange.id)
-          this.qweets.splice(index, 1)
+          console.log('Removed flit: ', flitChange)
+          let index = this.flits.findIndex(flit => flit.id === flitChange.id)
+          this.flits.splice(index, 1)
         }
       })
     })
@@ -196,7 +196,7 @@ export default {
 </script>
 
 <style lang="sass">
-.new-qweet
+.new-flit
   textarea
     font-size: 19px
     line-height: 1.4 !important
@@ -204,10 +204,10 @@ export default {
   border-top: 1px solid
   border-bottom: 1px solid
   border-color: $grey-4
-.qweet:not(:first-child)
+.flit:not(:first-child)
   border-top: 1px solid rgba(0, 0, 0, 0.12)
-.qweet-content
+.flit-content
   white-space: pre-line
-.qweet-icons
+.flit-icons
   margin-left: -5px
 </style>

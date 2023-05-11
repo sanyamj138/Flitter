@@ -1,9 +1,9 @@
 {
-  "name": "qwitter",
+  "name": "flitter",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Qwitter",
-  "author": "Danny Connell",
+  "productName": "Flitter",
+  "author": "Sanyam Jain",
   "private": true,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"
