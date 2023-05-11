@@ -1,149 +1,134 @@
 <template>
-  <q-layout view="lHr lpR fFf" class="bg-white-1">
-    <q-header bordered class="bg-primary text-white">
-      <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+  <q-layout view="lHr lpR fFf">
 
-        <q-toolbar-title>
-          <!-- <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar> -->
-          <span class="gt-sm">{{$route.name}}</span>
+    <q-header bordered class="bg-white text-black">
+      <q-toolbar>
+        <q-btn dense flat round icon="menu" @click="left = !left" />
+
+        <q-toolbar-title class="text-weight-bold">
+          <span class="gt-sm">{{ $route.name }}</span>
           <q-icon
-            name="fa-solid fa-dove"
-            color="white"
+            class="header-icon q-pa-md lt-md"
+            name="fas fa-dove"
             size="sm"
-            class="q-pa-sm lt-md header-icon"
+            color="primary"
           />
         </q-toolbar-title>
 
-        <!-- <q-btn dense flat round icon="menu" @click="toggleRightDrawer" /> -->
       </q-toolbar>
     </q-header>
 
-    <q-drawer 
-    show-if-above 
-    v-model="leftDrawerOpen" 
-    side="left" bordered 
-    class="bg-white-1"
-    :width="280">
-      <!-- drawer content -->
+    <q-drawer
+      v-model="left"
+      side="left"
+      :width="283"
+      bordered
+      show-if-above
+    >
       <q-icon
-      name="fa-solid fa-dove"
-      color="primary"
-      size="md"
-      class="q-pa-sm"
+        class="q-pa-md"
+        name="fas fa-dove"
+        size="lg"
+        color="primary"
       />
-    
-    <q-list class="q-pt-md">
-      <q-item 
-      exact
-      clickable 
-      v-ripple
-      to="/"
-      >
-        <q-item-section avatar>
-          <q-icon name="home" size="md"/>
-        </q-item-section>
 
-        <q-item-section class="text-h6 text-weight-bold">Home</q-item-section>
-      </q-item>
-    </q-list>
+      <q-list>
+        <q-item
+          to="/"
+          v-ripple
+          clickable
+          exact
+        >
+          <q-item-section avatar>
+            <q-icon name="home" size="md" />
+          </q-item-section>
 
-    <q-list>
-      <q-item 
-      exact
-      clickable 
-      v-ripple
-      to="/about"
-      >
-        <q-item-section avatar>
-          <q-icon name="help" size="md"/>
-        </q-item-section>
+          <q-item-section class="text-h6 text-weight-bold">Home</q-item-section>
+        </q-item>
+        <q-item
+          to="/about"
+          v-ripple
+          clickable
+          exact
+        >
+          <q-item-section avatar>
+            <q-icon name="help" size="md" />
+          </q-item-section>
 
-        <q-item-section class="text-h6 text-weight-bold">About</q-item-section>
-      </q-item>
-    </q-list>
+          <q-item-section class="text-h6 text-weight-bold">About</q-item-section>
+        </q-item>
+      </q-list>
 
     </q-drawer>
 
-    <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered class="bg-white-1">
-      <!-- drawer content -->
-      <q-input 
-      placeholder="Search"
-      class = "q-ma-md"
-      outlined
-      rounded
-      dense
+    <q-drawer show-if-above v-model="right" side="right" bordered>
+      <q-input
+        placeholder="Search Qwitter"
+        class="q-ma-md"
+        outlined
+        rounded
+        dense
       >
         <template v-slot:prepend>
-          <q-icon name="Search" />
-        </template> 
+          <q-icon name="search" />
+        </template>
       </q-input>
+
       <q-list
-      separator
+        separator
+        padding
       >
         <q-item class="q-pa-md">
-        <q-item-section>
-          <q-item-label overline class="text-grey">EDUCATION</q-item-label>
-          <q-item-label class="text-weight-bold">Something amazing happened!</q-item-label>
-          <q-item-label caption>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo eaque vero nesciunt libero sapiente distinctio optio tempora sit quae voluptatem quidem, quis quam unde, nostrum recusandae nisi quisquam repellat magnam?</q-item-label>
-        </q-item-section>
-        <q-item-section side top> 
-        <q-item-label caption>5 min ago</q-item-label>
-        </q-item-section>
-      </q-item>
+          <q-item-section>
+            <q-item-label overline class="text-grey">Education</q-item-label>
+            <q-item-label class="text-weight-bold">Something amazing happened!</q-item-label>
+            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
 
-      <q-item class="q-pa-md">
-        <q-item-section>
-          <q-item-label overline class="text-grey">EDUCATION</q-item-label>
-          <q-item-label class="text-weight-bold">Something amazing happened!</q-item-label>
-          <q-item-label caption>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est quisquam, velit ullam ducimus aliquid ex autem non dolores accusantium odit tenetur consequatur aperiam adipisci incidunt molestiae? Vel dolor odit quaerat.</q-item-label>
-        </q-item-section>
-        <q-item-section side top> 
-        <q-item-label caption>5 min ago</q-item-label>
-        </q-item-section>
-      </q-item>
+          <q-item-section side top>
+            <q-item-label caption>5 min ago</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item class="q-pa-md">
+          <q-item-section>
+            <q-item-label overline class="text-grey">Education</q-item-label>
+            <q-item-label class="text-weight-bold">Something amazing happened!</q-item-label>
+            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
 
-      <q-item class="q-pa-md">
-        <q-item-section>
-          <q-item-label overline class="text-grey">EDUCATION</q-item-label>
-          <q-item-label class="text-weight-bold">Something amazing happened!</q-item-label>
-          <q-item-label caption>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla eligendi reiciendis accusantium nisi, sunt praesentium dolor excepturi voluptatem aliquid iste ipsam odit perferendis qui reprehenderit, similique quisquam quo, architecto possimus.</q-item-label>
-        </q-item-section>
-        <q-item-section side top> 
-        <q-item-label caption>5 min ago</q-item-label>
-        </q-item-section>
-      </q-item>
+          <q-item-section side top>
+            <q-item-label caption>5 min ago</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item class="q-pa-md">
+          <q-item-section>
+            <q-item-label overline class="text-grey">Education</q-item-label>
+            <q-item-label class="text-weight-bold">Something amazing happened!</q-item-label>
+            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
+
+          <q-item-section side top>
+            <q-item-label caption>5 min ago</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
-      
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </q-page-container>
 
   </q-layout>
 </template>
 
 <script>
-import { ref } from 'vue'
-
 export default {
-  setup () {
-    const leftDrawerOpen = ref(false)
-    const rightDrawerOpen = ref(false)
-
+  data () {
     return {
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      },
-
-      rightDrawerOpen,
-      toggleRightDrawer () {
-        rightDrawerOpen.value = !rightDrawerOpen.value
-      }
+      left: false,
+      right: false
     }
   }
 }

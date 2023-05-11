@@ -23,9 +23,7 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'ErrorNotFound'
-})
+export default {
+  name: 'Error404'
+}
 </script>
