@@ -1,10 +1,10 @@
-# Qwitter (qwitter)
+# Flitter (flitter)
 
 A Cross-Platrom Twitter Clone created with Quasar Framework, VueJS & Firebase
 
 ## Setup Firebase
-- Create a new Firebase project named Qwitter
-- Create a Web App named Qwitter
+- Create a new Firebase project named Flitter
+- Create a Web App named Flitter
 - Copy the config from the code sample that appears and add it to src/boot/firebase.js
 - Create a Cloud Firestore database - make sure you choose "Start in test mode"
 
