@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHr lpR fFf">
 
-    <q-header bordered class="bg-white text-black">
+    <q-header bordered  class="bg-white text-black">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="left = !left" />
 
@@ -27,7 +27,7 @@
     >
       <q-icon
         class="q-pa-md"
-        name="fas fa-dove"
+        name="flutter_dash"
         size="lg"
         color="primary"
       />
@@ -40,7 +40,7 @@
           exact
         >
           <q-item-section avatar>
-            <q-icon name="home" size="md" />
+            <q-icon name="home" size="sm" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold">Home</q-item-section>
@@ -52,10 +52,49 @@
           exact
         >
           <q-item-section avatar>
-            <q-icon name="help" size="md" />
+            <q-icon name="help" size="sm" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold">About</q-item-section>
+        </q-item>
+
+        <q-item
+          to="/explore"
+          v-ripple
+          clickable
+          exact
+        >
+          <q-item-section avatar>
+            <q-icon name="tag" size="sm" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Explore</q-item-section>
+        </q-item>
+
+        <q-item
+          to="/notifications"
+          v-ripple
+          clickable
+          exact
+        >
+          <q-item-section avatar>
+            <q-icon name="notifications" size="sm" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Notifications</q-item-section>
+        </q-item>
+
+        <q-item
+          to="/profile"
+          v-ripple
+          clickable
+          exact
+        >
+          <q-item-section avatar>
+            <q-icon name="person" size="sm" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Profile</q-item-section>
         </q-item>
       </q-list>
 

@@ -13,6 +13,21 @@ const routes = [
         path: '/about',
         component: () => import('pages/PageAbout.vue'),
         name: 'About'
+      },
+      {
+        path: '/explore',
+        component: () => import('pages/PageExplore.vue'),
+        name: 'Explore'
+      },
+      {
+        path: '/notifications',
+        component: () => import('pages/PageNotifications.vue'),
+        name: 'Notifications'
+      },
+      {
+        path: '/profile',
+        component: () => import('pages/PageProfile.vue'),
+        name: 'Profile'
       }
     ]
   },
