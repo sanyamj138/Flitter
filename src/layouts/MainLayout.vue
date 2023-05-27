@@ -34,7 +34,7 @@
 
       <q-list>
         <q-item
-          to="/"
+          to="/home"
           v-ripple
           clickable
           exact
@@ -95,6 +95,19 @@
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold">Profile</q-item-section>
+        </q-item>
+
+        <q-item
+          @click="logout"
+          v-ripple
+          clickable
+          exact
+        >
+          <q-item-section avatar>
+            <q-icon name="logout" size="sm" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Logout</q-item-section>
         </q-item>
       </q-list>
 
@@ -161,14 +174,39 @@
 
   </q-layout>
 </template>
+ 
+ <script setup>
+ import signout from 'src/firebase/firebase-signout'
+ import { useRouter } from 'vue-router'
+ 
+ const router = useRouter()
+ 
+ const logout = () => {
+  signout().then(() => {
+   router.push('/login')
+  })
+ }
+</script>
 
 <script>
+import { ref } from "vue";
+
 export default {
   data () {
     return {
       left: false,
       right: false
     }
+  },
+  setup() {
+    const leftDrawerOpen = ref(false);
+
+    return {
+      leftDrawerOpen,
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
+    };
   }
 }
 </script>

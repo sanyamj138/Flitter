@@ -14,7 +14,9 @@
           >
             <template v-slot:before>
               <q-avatar size="xl">
-                <img src="https://s.gravatar.com/avatar/bc852ebbe34de6ccebb6fef5ba88b28e?s=80">
+                <img
+                  src="https://s.gravatar.com/avatar/bc852ebbe34de6ccebb6fef5ba88b28e?s=80"
+                />
               </q-avatar>
             </template>
           </q-input>
@@ -33,11 +35,7 @@
         </div>
       </div>
 
-      <q-separator
-        class="divider"
-        color="grey-2"
-        size="10px"
-      />
+      <q-separator class="divider" color="grey-2" size="10px" />
 
       <q-list separator>
         <transition-group
@@ -45,14 +43,12 @@
           enter-active-class="animated fadeIn slow"
           leave-active-class="animated fadeOut slow"
         >
-          <q-item
-            v-for="flit in flits"
-            :key="flit.id"
-            class="flit q-py-md"
-          >
+          <q-item v-for="flit in flits" :key="flit.id" class="flit q-py-md">
             <q-item-section avatar top>
               <q-avatar size="xl">
-                <img src="https://s.gravatar.com/avatar/bc852ebbe34de6ccebb6fef5ba88b28e?s=80">
+                <img
+                  src="https://s.gravatar.com/avatar/bc852ebbe34de6ccebb6fef5ba88b28e?s=80"
+                />
               </q-avatar>
             </q-item-section>
 
@@ -61,10 +57,12 @@
                 <strong>Sanyam Jain</strong>
                 <span class="text-grey-7">
                   @sanyamj138
-                  <br class="lt-md">&bull; {{ flit.date | relativeDate }}
+                  <!-- <br class="lt-md" />&bull; {{ flit.date | relativeDate }} -->
                 </span>
               </q-item-label>
-              <q-item-label class="flit-content text-body1">{{ flit.content }}</q-item-label>
+              <!-- <q-item-label class="flit-content text-body1">{{
+                flit.content
+              }}</q-item-label>
               <div class="flit-icons row justify-between q-mt-sm">
                 <q-btn
                   color="grey"
@@ -96,7 +94,7 @@
                   flat
                   round
                 />
-              </div>
+              </div> -->
             </q-item-section>
           </q-item>
         </transition-group>
@@ -105,15 +103,16 @@
   </q-page>
 </template>
 
-<script>
-import db from 'src/boot/firebase'
-import { formatDistance } from 'date-fns'
+<!-- <script>
+import db from "src/boot/firebase";
+import { formatDistance } from "date-fns";
+import { defineComponent } from 'vue'
 
 export default {
-  name: 'PageHome',
+  name: "PageHome",
   data() {
     return {
-      newflitContent: '',
+      newflitContent: "",
       flits: [
         // {
         //   id: 'ID1',
@@ -127,73 +126,88 @@ export default {
         //   date: 1611653252444,
         //   liked: true
         // },
-      ]
-    }
+      ],
+    };
   },
   methods: {
     addNewflit() {
       let newflit = {
         content: this.newflitContent,
         date: Date.now(),
-        liked: false
-      }
+        liked: false,
+      };
       // this.flits.unshift(newflit)
-      db.collection('flits').add(newflit).then(function(docRef) {
-        console.log('Document written with ID: ', docRef.id)
-      }).catch(function(error) {
-        console.error('Error adding document: ', error)
-      })
-      this.newflitContent = ''
+      db.collection("flits")
+        .add(newflit)
+        .then(function (docRef) {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function (error) {
+          console.error("Error adding document: ", error);
+        });
+      this.newflitContent = "";
     },
     deleteflit(flit) {
-      db.collection('flits').doc(flit.id).delete().then(function() {
-        console.log('Document successfully deleted!');
-      }).catch(function(error) {
-        console.error('Error removing document: ', error);
-      })
+      db.collection("flits")
+        .doc(flit.id)
+        .delete()
+        .then(function () {
+          console.log("Document successfully deleted!");
+        })
+        .catch(function (error) {
+          console.error("Error removing document: ", error);
+        });
     },
     toggleLiked(flit) {
-      db.collection('flits').doc(flit.id).update({
-        liked: !flit.liked
-      })
-      .then(function() {
-        console.log('Document successfully updated!')
-      })
-      .catch(function(error) {
-        // The document probably doesn't exist.
-        console.error('Error updating document: ', error)
-      })
-    }
+      db.collection("flits")
+        .doc(flit.id)
+        .update({
+          liked: !flit.liked,
+        })
+        .then(function () {
+          console.log("Document successfully updated!");
+        })
+        .catch(function (error) {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+    },
   },
   filters: {
     relativeDate(value) {
-      return formatDistance(value, new Date())
-    }
+      return formatDistance(value, new Date());
+    },
   },
   mounted() {
-    db.collection('flits').orderBy('date').onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        let flitChange = change.doc.data()
-        flitChange.id = change.doc.id
-        if (change.type === 'added') {
-          console.log('New flit: ', flitChange)
-          this.flits.unshift(flitChange)
-        }
-        if (change.type === 'modified') {
-          console.log('Modified flit: ', flitChange)
-          let index = this.flits.findIndex(flit => flit.id === flitChange.id)
-          Object.assign(this.flits[index], flitChange)
-        }
-        if (change.type === 'removed') {
-          console.log('Removed flit: ', flitChange)
-          let index = this.flits.findIndex(flit => flit.id === flitChange.id)
-          this.flits.splice(index, 1)
-        }
-      })
-    })
-  }
-}
-</script>
+    db.collection("flits")
+      .orderBy("date")
+      .onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          let flitChange = change.doc.data();
+          flitChange.id = change.doc.id;
+          if (change.type === "added") {
+            console.log("New flit: ", flitChange);
+            this.flits.unshift(flitChange);
+          }
+          if (change.type === "modified") {
+            console.log("Modified flit: ", flitChange);
+            let index = this.flits.findIndex(
+              (flit) => flit.id === flitChange.id
+            );
+            Object.assign(this.flits[index], flitChange);
+          }
+          if (change.type === "removed") {
+            console.log("Removed flit: ", flitChange);
+            let index = this.flits.findIndex(
+              (flit) => flit.id === flitChange.id
+            );
+            this.flits.splice(index, 1);
+          }
+        });
+      });
+  },
+};
+</script> -->
 
 <style lang="sass">
 .new-flit
